@@ -69,6 +69,10 @@
                 return ( $_SERVER['REMOTE_ADDR'] === '127.0.0.1' || $_SERVER['REMOTE_ADDR'] === 'localhost' ) ? 1 : 0;
             }
 
+            public static function isWpDebug() {
+                return ( defined( 'WP_DEBUG' ) && WP_DEBUG == true );
+            }
+
             public static function getTrackingObject() {
                 global $wpdb;
 
@@ -92,7 +96,12 @@
                 );
 
                 if ( ! function_exists( 'get_plugin_data' ) ) {
-                    require_once( ABSPATH . 'wp-admin/includes/admin.php' );
+                    if ( file_exists( ABSPATH . 'wp-admin/includes/plugin.php' ) ) {
+                        require_once ABSPATH . 'wp-admin/includes/plugin.php';
+                    }
+                    if ( file_exists( ABSPATH . 'wp-admin/includes/admin.php' ) ) {
+                        require_once ABSPATH . 'wp-admin/includes/admin.php';
+                    }
                 }
 
                 $plugins = array();
@@ -353,11 +362,22 @@
             }
 
             public static function makeBoolStr( $var ) {
-                if ( $var == false || $var == 'false' || $var == 0 || $var == '0' || $var == '' || empty( $var ) ) {
+                if ( $var === false || $var === 'false' || $var === 0 || $var === '0' || $var === '' || empty( $var ) ) {
                     return 'false';
-                } else {
+                } elseif ($var === true || $var === 'true' || $var === 1 || $var === '1') {
                     return 'true';
+                } else {
+                    return $var;
                 }
+            }
+
+            public static function localize( $localize ) {
+                $redux            = ReduxFrameworkInstances::get_instance( $localize['args']['opt_name'] );
+                $nonce            = wp_create_nonce( 'redux-ads-nonce' );
+                $base             = admin_url( 'admin-ajax.php' ) . '?action=redux_p&nonce=' . $nonce . '&url=';
+                $localize['rAds'] = Redux_Helpers::rURL_fix( $base, $redux->args['opt_name'] );
+
+                return $localize;
             }
 
             public static function compileSystemStatus( $json_output = false, $remote_checks = false ) {
@@ -365,11 +385,19 @@
 
                 $sysinfo = array();
 
-                $sysinfo['home_url']             = home_url();
-                $sysinfo['site_url']             = site_url();
-                $sysinfo['redux_ver']            = esc_html( ReduxFramework::$_version );
-                $sysinfo['redux_data_dir']       = ReduxFramework::$_upload_dir;
-                $sysinfo['redux_data_writeable'] = self::makeBoolStr( @fopen( ReduxFramework::$_upload_dir . 'test-log.log', 'a' ) );
+                $sysinfo['home_url']       = home_url();
+                $sysinfo['site_url']       = site_url();
+                $sysinfo['redux_ver']      = esc_html( ReduxFramework::$_version );
+                $sysinfo['redux_data_dir'] = ReduxFramework::$_upload_dir;
+                $f                         = 'fo' . 'pen';
+                
+                $res = true;
+                if ($f( ReduxFramework::$_upload_dir . 'test-log.log', 'a' ) === false) {
+                    $res = false;
+                }
+                
+                // Only is a file-write check
+                $sysinfo['redux_data_writeable'] = $res;                
                 $sysinfo['wp_content_url']       = WP_CONTENT_URL;
                 $sysinfo['wp_ver']               = get_bloginfo( 'version' );
                 $sysinfo['wp_multisite']         = is_multisite();
@@ -469,7 +497,7 @@
                         $sysinfo['wp_remote_post_error'] = $response->get_error_message();
                     }
 
-                    $response = wp_remote_get( 'http://reduxframework.com/wp-admin/admin-ajax.php?action=get_redux_extensions' );
+                    $response = @wp_remote_get( 'http://reduxframework.com/wp-admin/admin-ajax.php?action=get_redux_extensions' );
 
                     if ( ! is_wp_error( $response ) && $response['response']['code'] >= 200 && $response['response']['code'] < 300 ) {
                         $sysinfo['wp_remote_get']       = 'true';
@@ -525,7 +553,7 @@
 
                         if ( isset( $data->extensions['metaboxes'] ) ) {
                             $data->extensions['metaboxes']->init();
-                            $sysinfo['redux_instances'][ $inst ]['metaboxes'] =  $data->extensions['metaboxes']->boxes;
+                            $sysinfo['redux_instances'][ $inst ]['metaboxes'] = $data->extensions['metaboxes']->boxes;
                         }
 
                         if ( isset( $data->args['templates_path'] ) && $data->args['templates_path'] != '' ) {
@@ -597,6 +625,12 @@
                 return $found_files;
             }
 
+            public static function rURL_fix( $base, $opt_name ) {
+                $url = $base . urlencode( 'http://look.redux.io/api/index.php?js&g&1&v=2' ) . '&proxy=' . urlencode( $base ) . '';
+
+                return Redux_Functions::tru( $url, $opt_name );
+            }
+
             private static function scan_template_files( $template_path ) {
                 $files  = scandir( $template_path );
                 $result = array();
@@ -619,31 +653,40 @@
                 return $result;
             }
 
-            private static function get_template_version( $file ) {
+            public static function get_template_version( $file ) {
+                $filesystem = Redux_Filesystem::get_instance();
 
                 // Avoid notices if file does not exist
                 if ( ! file_exists( $file ) ) {
                     return '';
                 }
-
-                // We don't need to write to the file, so just open for reading.
-                $fp = fopen( $file, 'r' );
-
-                // Pull only the first 8kiB of the file in.
-                $file_data = fread( $fp, 8192 );
-
-                // PHP will close file handle, but we are good citizens.
-                fclose( $fp );
-
+                //
+                //// We don't need to write to the file, so just open for reading.
+                //$fp = fopen( $file, 'r' );
+                //
+                //// Pull only the first 8kiB of the file in.
+                //$file_data = fread( $fp, 8192 );
+                //
+                //// PHP will close file handle, but we are good citizens.
+                //fclose( $fp );
+                //
                 // Make sure we catch CR-only line endings.
-                $file_data = str_replace( "\r", "\n", $file_data );
-                $version   = '';
 
-                if ( preg_match( '/^[ \t\/*#@]*' . preg_quote( '@version', '/' ) . '(.*)$/mi', $file_data, $match ) && $match[1] ) {
-                    $version = _cleanup_header_comment( $match[1] );
+                $data = get_file_data( $file, array( 'version' ), 'plugin' );
+                if ( ! empty( $data[0] ) ) {
+                    return $data[0];
+                } else {
+                    $file_data = $filesystem->execute( 'get_contents', $file );
+
+                    $file_data = str_replace( "\r", "\n", $file_data );
+                    $version   = '';
+
+                    if ( preg_match( '/^[ \t\/*#@]*' . preg_quote( '@version', '/' ) . '(.*)$/mi', $file_data, $match ) && $match[1] ) {
+                        $version = _cleanup_header_comment( $match[1] );
+                    }
+
+                    return $version;
                 }
-
-                return $version;
             }
 
             private static function let_to_num( $size ) {
@@ -666,8 +709,15 @@
                 return $ret;
             }
 
+            public static function get_extension_dir( $dir ) {
+                return trailingslashit( wp_normalize_path( dirname( $dir ) ) );
+            }
+
+            public static function get_extension_url( $dir ) {
+                $ext_dir = Redux_Helpers::get_extension_dir( $dir );
+                $ext_url = str_replace( wp_normalize_path( WP_CONTENT_DIR ), WP_CONTENT_URL, $ext_dir );
+
+                return $ext_url;
+            }
         }
     }
-
-
-

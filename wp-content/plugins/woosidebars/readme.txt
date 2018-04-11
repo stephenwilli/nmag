@@ -1,9 +1,9 @@
 === WooSidebars ===
 Contributors: woothemes, mattyza
 Tags: widgets, sidebars, widget-areas
-Requires at least: 3.3
-Tested up to: 4.1.0
-Stable tag: 1.4.1
+Requires at least: 4.1
+Tested up to: 4.6.1
+Stable tag: 1.4.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -12,8 +12,6 @@ WooSidebars adds functionality to display different widgets in a sidebar, accord
 == Description ==
 
 With WooSidebars, it's possible to change the widgets that display in a sidebar (widgetized area) according to a context (for example, a specific page, a specific blog post, certain categories or the search results screen). Setting up a custom widget area to display across multiple conditions is as easy as a few clicks.
-
-[vimeo http://vimeo.com/42980663]
 
 Looking for a helping hand? [View plugin documentation](http://docs.woothemes.com/documentation/plugins/woosidebars/).
 
@@ -71,6 +69,12 @@ Looking to contribute code to this plugin? [Fork the repository over at GitHub](
 
 == Upgrade Notice ==
 
+= 1.4.3 =
+Bug fix and maintenance release.
+
+= 1.4.2 =
+Security Fix for XSS vulnerability
+
 = 1.4.1 =
 Fixes an error notice on the homepage, caused by the tag check logic.
 
@@ -95,9 +99,17 @@ Moved to WordPress.org. Woo! Added scope to methods and properties where missing
 
 == Changelog ==
 
+= 1.4.3 =
+* 2015-09-22
+* Ensures condition headings are present before attempting to output in the conditions meta box.
+
+= 1.4.2 =
+* 2015-04-22
+* Security Fix for remove_query_arg vulnerability
+
 = 1.4.1 =
 * 2015-02-17
-Fixes an error notice on the homepage, caused by the tag check logic.
+* Fixes an error notice on the homepage, caused by the tag check logic.
 
 = 1.4.0 =
 * 2015-02-17

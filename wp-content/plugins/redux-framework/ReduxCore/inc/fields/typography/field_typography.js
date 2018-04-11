@@ -25,13 +25,7 @@
         allowClear: true
     };
 
-    $( document ).ready(
-        function() {
-            //redux.field_objects.typography.init();
-        }
-    );
-
-    redux.field_objects.typography.init = function( selector ) {
+    redux.field_objects.typography.init = function( selector, skipCheck ) {
 
         if ( !selector ) {
             selector = $( document ).find( ".redux-group-tab:visible" ).find( '.redux-container-typography:visible' );
@@ -79,7 +73,7 @@
 
                                 fontClear = Boolean( $( this ).find( '.redux-font-clear' ).val() );
 
-                                redux.field_objects.typography.select( family );
+                                redux.field_objects.typography.select( family, true );
 
                                 window.onbeforeunload = null;
                             }
@@ -93,17 +87,20 @@
                         );
 
                         //init when value is changed
-                        $( this ).find( '.redux-typography-size, .redux-typography-height, .redux-typography-word, .redux-typography-letter, .redux-typography-align, .redux-typography-transform, .redux-typography-font-variant, .redux-typography-decoration' ).keyup(
+                        $( this ).find(
+                            '.redux-typography-size, .redux-typography-height, .redux-typography-word, .redux-typography-letter, .redux-typography-align, .redux-typography-transform, .redux-typography-font-variant, .redux-typography-decoration'
+                        ).keyup(
                             function() {
-                                redux.field_objects.typography.select( $( this ).parents( '.redux-container-typography:first' ) );
+                                redux.field_objects.typography.select(
+                                    $( this ).parents( '.redux-container-typography:first' )
+                                );
                             }
                         );
 
                         // Have to redeclare the wpColorPicker to get a callback function
                         $( this ).find( '.redux-typography-color' ).wpColorPicker(
                             {
-                                change: function( event, ui ) {
-                                    redux_change( $( this ) );
+                                change: function( e, ui ) {
                                     $( this ).val( ui.color.toString() );
                                     redux.field_objects.typography.select( $( this ) );
                                 }
@@ -118,7 +115,9 @@
                         );
 
                         // Allow negative numbers for indicated fields
-                        $( this ).find( ".redux-typography-height, .redux-typography-word, .redux-typography-letter" ).numeric(
+                        $( this ).find(
+                            ".redux-typography-height, .redux-typography-word, .redux-typography-letter"
+                        ).numeric(
                             {
                                 allowMinus: true
                             }
@@ -151,7 +150,9 @@
                                 var thisID = $( this ).parents( '.redux-container-typography:first' ).attr( 'data-id' );
 
                                 // User included fonts?
-                                var isUserFonts = $( '#' + thisID + ' .redux-typography-font-family' ).data( 'user-fonts' );
+                                var isUserFonts = $( '#' + thisID + ' .redux-typography-font-family' ).data(
+                                    'user-fonts'
+                                );
                                 isUserFonts = isUserFonts ? 1 : 0;
 
                                 // Google font isn use?
@@ -232,7 +233,9 @@
                                 selVals = val;
                                 isSelecting = true;
 
-                                redux_change( $( this ) );
+                                redux.field_objects.typography.select(
+                                    $( this ).parents( '.redux-container-typography:first' )
+                                );
                             }
                         ).on(
                             'select2-clearing', function( val, choice ) {
@@ -243,7 +246,9 @@
 
                                 $( '#' + thisID + ' #' + thisID + '-google-font' ).val( 'false' );
 
-                                redux_change( $( this ) );
+                                redux.field_objects.typography.select(
+                                    $( this ).parents( '.redux-container-typography:first' )
+                                );
                             }
                         );
 
@@ -253,7 +258,9 @@
                         }
 
                         // Init select2 for indicated fields
-                        el.find( ".redux-typography-family-backup, .redux-typography-align, .redux-typography-transform, .redux-typography-font-variant, .redux-typography-decoration" ).select2( default_params );
+                        el.find(
+                            ".redux-typography-family-backup, .redux-typography-align, .redux-typography-transform, .redux-typography-font-variant, .redux-typography-decoration"
+                        ).select2( default_params );
 
                     }
                 );
@@ -311,11 +318,21 @@
 
 
     //  Sync up font options
-    redux.field_objects.typography.select = function( selector ) {
+    redux.field_objects.typography.select = function( selector, skipCheck ) {
+        var mainID;
 
         // Main id for selected field
-        var mainID = $( selector ).parents( '.redux-container-typography:first' ).attr( 'data-id' );
+        mainID = $( selector ).parents( '.redux-container-typography:first' ).attr( 'data-id' );
+        if ( mainID === undefined ) {
+            mainID = $( selector ).attr( 'data-id' );
+        }
 
+        var parent = $( selector ).parents( '.redux-container-typography:first' );
+        var data = [];
+        //$.each(parent.find('.redux-typography-field'), function() {
+        //    console.log();
+        //});
+        //console.log( selector );
         // Set all the variables to be checked against
         var family = $( '#' + mainID + ' #' + mainID + '-family' ).val();
 
@@ -336,6 +353,8 @@
         var script = $( '#' + mainID + ' select.redux-typography-subsets' ).val();
         var color = $( '#' + mainID + ' .redux-typography-color' ).val();
         var units = $( '#' + mainID ).data( 'units' );
+        //console.log('here3');
+        //console.log(color);
 
         //var output = family;
 
@@ -345,7 +364,9 @@
             google = redux.field_objects.typography.makeBool( selVals.object['data-google'] );
             $( '#' + mainID + ' .redux-typography-google-font' ).val( google );
         } else {
-            google = redux.field_objects.typography.makeBool( $( '#' + mainID + ' .redux-typography-google-font' ).val() ); // Check if font is a google font
+            google = redux.field_objects.typography.makeBool(
+                $( '#' + mainID + ' .redux-typography-google-font' ).val()
+            ); // Check if font is a google font
         }
 
         // Page load. Speeds things up memory wise to offload to client
@@ -403,8 +424,8 @@
                         }
 
                         html += '<option value="' + variant.id + '"' + selected + '>' + variant.name.replace(
-                            /\+/g, " "
-                        ) + '</option>';
+                                /\+/g, " "
+                            ) + '</option>';
                     }
                 );
 
@@ -431,7 +452,9 @@
                         } else {
                             selected = "";
                         }
-                        html += '<option value="' + subset.id + '"' + selected + '>' + subset.name.replace(/\+/g, " ") + '</option>';
+                        html += '<option value="' + subset.id + '"' + selected + '>' + subset.name.replace(
+                                /\+/g, " "
+                            ) + '</option>';
                     }
                 );
 
@@ -462,8 +485,8 @@
                             }
 
                             html += '<option value="' + index + '"' + selected + '>' + value.replace(
-                                '+', ' '
-                            ) + '</option>';
+                                    '+', ' '
+                                ) + '</option>';
                         }
                     );
 
@@ -523,10 +546,11 @@
                     link += '&subset=' + script;
                 }
 
-                if ( typeof (WebFont) !== "undefined" && WebFont ) {
-                    WebFont.load( {google: {families: [link]}} );
+                if ( isSelecting === false ) {
+                    if ( typeof (WebFont) !== "undefined" && WebFont ) {
+                        WebFont.load( {google: {families: [link]}} );
+                    }
                 }
-
                 $( '#' + mainID + ' .redux-typography-google' ).val( true );
             } else {
                 $( '#' + mainID + ' .redux-typography-google' ).val( false );
@@ -549,25 +573,25 @@
             height = size;
         }
 
-        if ( size === '' ) {
+        if ( size === '' || size === undefined ) {
             $( '#' + mainID + ' .typography-font-size' ).val( '' );
         } else {
             $( '#' + mainID + ' .typography-font-size' ).val( size + units );
         }
 
-        if ( height === '' ) {
+        if ( height === '' || height === undefined ) {
             $( '#' + mainID + ' .typography-line-height' ).val( '' );
         } else {
             $( '#' + mainID + ' .typography-line-height' ).val( height + units );
         }
 
-        if ( word === '' ) {
+        if ( word === '' || word === undefined ) {
             $( '#' + mainID + ' .typography-word-spacing' ).val( '' );
         } else {
             $( '#' + mainID + ' .typography-word-spacing' ).val( word + units );
         }
 
-        if ( letter === '' ) {
+        if ( letter === '' || letter === undefined ) {
             $( '#' + mainID + ' .typography-letter-spacing' ).val( '' );
         } else {
             $( '#' + mainID + ' .typography-letter-spacing' ).val( letter + units );
@@ -575,6 +599,7 @@
 
         // Show more preview stuff
         if ( $( '#' + mainID ).hasClass( 'typography-initialized' ) ) {
+            //console.log('here2');
             var isPreviewSize = $( '#' + mainID + ' .typography-preview' ).data( 'preview-size' );
 
             if ( isPreviewSize == '0' ) {
@@ -602,8 +627,12 @@
                 );
             }
 
-            $( '#' + mainID + ' .typography-style .select2-chosen' ).text( $( '#' + mainID + ' .redux-typography-style option:selected' ).text() );
-            $( '#' + mainID + ' .typography-script .select2-chosen' ).text( $( '#' + mainID + ' .redux-typography-subsets option:selected' ).text() );
+            $( '#' + mainID + ' .typography-style .select2-chosen' ).text(
+                $( '#' + mainID + ' .redux-typography-style option:selected' ).text()
+            );
+            $( '#' + mainID + ' .typography-script .select2-chosen' ).text(
+                $( '#' + mainID + ' .redux-typography-subsets option:selected' ).text()
+            );
 
             if ( align ) {
                 $( '#' + mainID + ' .typography-preview' ).css( 'text-align', align );
@@ -631,5 +660,8 @@
 
         isSelecting = false;
 
+        if ( !skipCheck ) {
+            redux_change( selector );
+        }
     };
 })( jQuery );

@@ -10,14 +10,6 @@
     redux.field_objects = redux.field_objects || {};
     redux.field_objects.color_gradient = redux.field_objects.color_gradient || {};
 
-    $( document ).ready(
-        function() {
-            //        setTimeout(function () {
-            //            redux.field_objects.color.init();
-            //        }, 1000);
-        }
-    );
-
     redux.field_objects.color_gradient.init = function( selector ) {
 
         if ( !selector ) {
@@ -28,7 +20,7 @@
             function() {
                 var el = $( this );
                 var parent = el;
-                
+
                 if ( !el.hasClass( 'redux-field-container' ) ) {
                     parent = el.parents( '.redux-field-container:first' );
                 }
@@ -40,16 +32,20 @@
                 } else {
                     return;
                 }
-                
-                el.find( '.redux-color-init' ).wpColorPicker({
-                    change: function( u ) {
-                        redux_change( $( this ) );
-                        el.find( '#' + u.target.getAttribute( 'data-id' ) + '-transparency' ).removeAttr( 'checked' );
-                    },
-                    clear: function() {
-                        redux_change( $( this ).parent().find( '.redux-color-init' ) );
+
+                el.find( '.redux-color-init' ).wpColorPicker(
+                    {
+                        change: function( e, ui ) {
+                            $( this ).val( ui.color.toString() );
+                            redux_change( $( this ) );
+                            el.find( '#' + e.target.getAttribute( 'data-id' ) + '-transparency' ).removeAttr( 'checked' );
+                        },
+                        clear: function( e, ui ) {
+                            $( this ).val( ui.color.toString() );
+                            redux_change( $( this ).parent().find( '.redux-color-init' ) );
+                        }
                     }
-                });
+                );
 
                 el.find( '.redux-color' ).on(
                     'keyup', function() {
@@ -61,7 +57,7 @@
                             $( this ).parent().parent().find( '.wp-color-result' ).css(
                                 'background-color', 'transparent'
                             );
-                    
+
                             el.find( id + '-transparency' ).attr( 'checked', 'checked' );
                         } else {
                             el.find( id + '-transparency' ).removeAttr( 'checked' );
@@ -83,7 +79,7 @@
                             $( this ).parent().parent().find( '.wp-color-result' ).css(
                                 'background-color', 'transparent'
                             );
-                    
+
                             el.find( id + '-transparency' ).attr( 'checked', 'checked' );
                         } else {
                             if ( colorValidate( this ) === value ) {
@@ -108,7 +104,7 @@
                 el.find( '.color-transparency' ).on(
                     'click', function() {
                         if ( $( this ).is( ":checked" ) ) {
-                            
+
                             el.find( '.redux-saved-color' ).val( $( '#' + $( this ).data( 'id' ) ).val() );
                             el.find( '#' + $( this ).data( 'id' ) ).val( 'transparent' );
                             el.find( '#' + $( this ).data( 'id' ) ).parent().parent().find( '.wp-color-result' ).css(
@@ -125,10 +121,11 @@
                                 el.find( '#' + $( this ).data( 'id' ) ).parent().parent().find( '.wp-color-result' ).css(
                                     'background-color', prevColor
                                 );
-                        
+
                                 el.find( '#' + $( this ).data( 'id' ) ).val( prevColor );
                             }
                         }
+                        redux_change( $( this ) );
                     }
                 );
             }
