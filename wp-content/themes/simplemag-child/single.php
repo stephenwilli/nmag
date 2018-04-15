@@ -5,219 +5,185 @@
  * @package SimpleMag
  * @since 	SimpleMag 1.0
 **/
-get_header(); 
+
+get_header();
+
 global $ti_option;
+
 $single_sidebar = get_post_meta( $post->ID, 'post_sidebar', true );
 ?>
 
-    <main id="content" class="clearfix animated" role="main" itemprop="mainContentOfPage" itemscope itemtype="http://schema.org/Blog">
+    <main id="content" class="clearfix anmtd" role="main">
 
     <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
-        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?> itemscope itemtype="http://schema.org/Article">
-
-            <header class="wrapper entry-header page-header">
-                <div class="entry-meta">
-                    <?php if( $ti_option['single_author_name'] == 1 ) { ?>
-                        <span class="vcard author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
-                            <span><?php _e( 'By','themetext' ); ?></span>
-                            <a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>" class="url fn n" rel="author" itemprop="url">
-                                <span itemprop="name"><?php the_author_meta( 'display_name' ); ?></span>
-                            </a>
-                        </span>
-                    <?php } ?>
-                    <?php ti_meta_data(); ?>
-                </div>
-                
-                <div class="title-with-sep single-title">
-                    <h1 class="entry-title" itemprop="headline"><?php the_title(); ?></h1>
-                </div>
-            </header>
+        <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
             <?php
-            // Output media only on first page if the post have pagination
+            // Post title full width
+            single_title_full_width(); 
+            ?>
+            
+            <?php
+            // Post media full width
             if ( $paged == 1 || $page == 1 ) {
-                // Output media from every post by Full Width option
-                if ( $ti_option['single_media_position'] == 'useperpost' && get_post_meta( $post->ID, 'post_media_position', true ) == 'media_full_width' || $ti_option['single_media_position'] == 'fullwidth' ){
-                ?>
-                <div class="entry-media">
-                    <?php
-                    if ( ! get_post_format() ): // Standard
-                        get_template_part( 'formats/format', 'standard' );
-                    elseif ( 'gallery' == get_post_format() ): // Gallery
-                        get_template_part( 'formats/format', 'gallery' );
-                    elseif ( 'video' == get_post_format() ): // Video
-                        get_template_part( 'formats/format', 'video' );
-                    elseif ( 'audio' == get_post_format() ): // Audio
-                        get_template_part( 'formats/format', 'audio' );
-                    endif;
-                    ?>
-                </div>
-                <?php } else { ?>
-                    <?php if ( 'gallery' == get_post_format() ) { ?>
-                    <div class="entry-media">
-                        <?php get_template_part( 'formats/format', 'gallery' ); ?>
-                    </div>
-                <?php } ?>
-            <?php } } ?>
-
-
+                single_media_full_width();
+            }
+            ?>
+            
             <div class="wrapper">
-
-                <?php if ( ! $single_sidebar || $single_sidebar == "post_sidebar_on" ) { // Enable/Disable post sidebar ?>
                 <div class="grids">
-                    <div class="grid-8 column-1">
-                <?php } ?>
-
-                    <?php
-                    // Output media only on first page if the post have pagination
-                    if ( $paged == 1 || $page == 1 ) {
-                        // Output media from every post by Above The Content option
-                        if ( $ti_option['single_media_position'] == 'useperpost' && get_post_meta( $post->ID, 'post_media_position', true ) == 'media_above_content' || $ti_option['single_media_position'] == 'abovecontent' ) {
-                        ?>
-                        <div class="entry-media">
-                            <?php 
-                            if ( ! get_post_format() ): // Standard
-                                get_template_part( 'formats/format', 'standard' );
-                            elseif ( 'video' == get_post_format() ): // Video
-                                get_template_part( 'formats/format', 'video' );
-                            elseif ( 'audio' == get_post_format() ): // Audio
-                                get_template_part( 'formats/format', 'audio' );
-                            endif;
-                            ?>
-                        </div>
-                    <?php } } ?>
+                    
+            <?php 
+            if ( ! $single_sidebar || $single_sidebar == "post_sidebar_on" ) : // Enable/Disable post sidebar ?>
+                <div class="grid-8 column-1">
+            <?php else : ?>
+                <div class="grid-8 grid-centered content-without-sidebar">
+            <?php endif; ?>
 
                     <?php 
-                    // Ad Unit
-                    if ( $ti_option['single_image_top_ad']['url'] == true || ! empty ( $ti_option['single_code_top_ad'] ) ) { ?>
-                    <div class="advertisement">
-                        <?php
-                        $single_banner_top = $ti_option['single_image_top_ad'];
-                        // Image Ad
-                        if ( $single_banner_top['url'] == true ) { ?>
-                            <a href="<?php echo $ti_option['single_image_top_ad_url']; ?>" rel="nofollow" target="_blank">
-                                <img src="<?php echo $single_banner_top['url']; ?>" width="<?php echo $single_banner_top['width']; ?>" height="<?php echo $single_banner_top['height']; ?>" alt="<?php _e( 'Advertisement', 'themetext' ); ?>" />
-                            </a>
-                        <?php 
-                        // Code Ad
-                        } elseif( $ti_option['single_code_top_ad'] == true ) {
-                            echo $ti_option['single_code_top_ad'];
-                        } ?>
-                    </div><!-- .advertisment -->
-                    <?php } ?>
+                    // Post title above the content
+                    single_title_above_content(); 
+                    ?>
 
+                    
                     <?php
-                    // Post Rating
-                    if ( $ti_option['single_rating_box'] == 'rating_top' ) {
-                        get_template_part( 'inc/single', 'rating' );
+                    // Post media above the content
+                    if ( $paged == 1 || $page == 1 ) {
+                        single_media_above_content();
+                    }
+                    ?>               
+
+                    
+                    <?php 
+                    // Ad above the content
+                    do_action('single_post_above_content_ad'); 
+                    ?>               
+
+                    
+                    <?php
+                    // Output manual excerpt if it's not empty
+                    if ( $ti_option['single_manual_excerpt'] == true && has_excerpt() ) {
+                        // If post has pagination using the <!--nextpage--> short tag, output the excerpt only on the first page
+                        if ( $paged == 1 || $page == 1 ) {
+                            echo '<div class="manual-excerpt">' . get_the_excerpt() . '</div>';
+                        }
                     }
                     ?>
 
-                    <div class="single-box clearfix entry-content" itemprop="articleBody">
-
-<!-- Author Photographer Add -->
-                        <div class="credits">
-
-                            <?php 
-                                $authorname = get_field('author_name');
-                                if ( !empty( $authorname ) ) {
-                                    ?>
-                                <p>Written By: <em><a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php the_field('author_name'); ?></a></em>                                    <?php
-                                }
-                            ?>
-                            <?php 
-                                $photoname = get_field('photographer_name');
-                                if ( !empty( $photoname ) ) {
-                                    ?>
-                                    | Photography By: <em><?php the_field('photographer_name'); ?></em></p>
-                                    <?php
-                                }
-                            ?>
-                        </div>
-                        <?php the_content(); ?>
-                        <?php
-                        $args = array(
-                            'before' => '<div class="link-pages"><h3 class="title">' . __( 'Continue Reading', 'themetext' ) . '</h3>',
-                            'after' => '</div>',
-                            'link_before' => '<span>',
-                            'link_after' => '</span>',
-                            'nextpagelink'     => '&rarr;',
-                            'previouspagelink' => '&larr;',
-                            'next_or_number'   => 'next_and_number',
-                        );
-                        wp_link_pages( $args );
+                    
+                    <?php
+                    // Post Rating output at the top
+                    if ( $ti_option['single_rating_box'] == 'rating_top' ) {
+                        if ( get_field( 'enable_rating' ) == true ) {
+                            // Circles style
+                            if ( $ti_option['single_rating_box_style'] == 'rating_circles' ) {
+                                get_template_part( 'inc/single', 'rating' );
+                                
+                            // Bars Style
+                            } else {
+                                get_template_part( 'inc/single', 'rating-bars' );
+                            }
+                        } 
+                    }
+                    ?>
+<!-- MOD: Author/Photographer Credits -->    
+                    <div class="credits">
+                      <?php 
+                        $authorname = get_field('author_name');
+                        if ( !empty( $authorname ) ) {
+                          ?>
+                        <p>Written By: <em><a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php the_field('author_name'); ?></a></em>                                    
+                      <?php
+                          }
                         ?>
-                    </div><!-- .entry-content -->
+                      <?php 
+                          $photoname = get_field('photographer_name');
+                          if ( !empty( $photoname ) ) {
+                              ?>
+                              | Photography By: <em><?php the_field('photographer_name'); ?></em></p>
+                        <?php
+                        }
+                      ?>
+                  </div>
 
+                    
+                    <article class="clearfix single-box entry-content">        
+                        <?php single_main_content(); ?>              
+                    </article><!-- .entry-content -->
+                    
+                    
+                    <?php
+                    // Ad below the content
+                    do_action( 'single_post_below_content_ad' );
+                    ?>
+                    
+                    
                     <?php
                     // Post Rating output at the bottom
                     if ( $ti_option['single_rating_box'] == 'rating_bottom' ) {
-                        get_template_part( 'inc/single', 'rating' );
+                        if ( get_field( 'enable_rating' ) == true ) {
+                            // Circles style
+                            if ( $ti_option['single_rating_box_style'] == 'rating_circles' ) {
+                                get_template_part( 'inc/single', 'rating' );
+                                
+                            // Bars Style
+                            } else {
+                                get_template_part( 'inc/single', 'rating-bars' );
+                            }
+                        }
                     }
+                    ?> 
                     
+                    
+                    <?php
                     // Show/Hide tags list
                     if ( $ti_option['single_tags_list'] == 1 ) {
-                        the_tags('<div class="single-box tag-box clearfix"><h3 class="title">' . __( 'Tags', 'themetext' ) . '</h3>', '', '</div>'); 
-                    }
+                        the_tags('<div class="single-box single-tags"><div class="tag-box"><div class="written-by tag-box-title">' . __( 'Tags from the story', 'themetext' ) . '</div>', ', ', '</div></div>');
+                    } 
+                    ?>
                     
+                    
+                    <?php                        
                     // Show/Hide share links
-                    if ( $ti_option['single_social'] == 1 ) {
-                        get_template_part( 'inc/single', 'share' );
-                    }
+                    if ( $ti_option['single_social'] == 1 ) { ?>
                     
+                    <?php
+                    // Show Comment icon
+                    if ( comments_open() ) :
+                        $comment_icon = sanitize_html_class( 'show-comment-icon' );
+                    endif;
+                    ?>
+                    
+                    <div class="clearfix single-box single-social <?php echo isset ( $comment_icon ) ? $comment_icon : ''; ?>">
+                    
+                        <?php
+                        // Hide Comment icon
+                        if ( comments_open() ) : ?>
+                        <a href="#comments" class="add-comment">
+                            <span class="score-number">
+                                <?php
+                                // Comments Count
+                                comments_number( '0', '1', '%' ); ?>
+                            </span>
+                        </a>
+                        <?php endif; ?>
+                        
+                        <?php
+                        // share icons
+                        social_share_icons(); ?>
+                    </div>
+                    
+                    <?php } ?>
+                    
+
+                    <?php
                     // Show/Hide author box
                     if ( $ti_option['single_author'] == 1 ) {
                         get_template_part( 'inc/author', 'box' );
                     }
                     ?>
-
-                    <?php 
-                    // Ad Unit
-                    if ( $ti_option['single_image_bottom_ad']['url'] == true || ! empty ( $ti_option['single_code_bottom_ad'] ) ) { ?>
-                        <div class="single-box advertisement">
-                            <?php
-                            // Image Ad
-                            if ( $ti_option['single_image_bottom_ad']['url'] == true ) {
-                                $single_banner_botom = $ti_option['single_image_bottom_ad']; ?>
-                                <a href="<?php echo $ti_option['single_image_bottom_ad_url']; ?>" rel="nofollow" target="_blank">
-                                    <img src="<?php echo $single_banner_botom['url']; ?>" width="<?php echo $single_banner_botom['width']; ?>" height="<?php echo $single_banner_botom['height']; ?>" alt="<?php _e( 'Advertisement', 'themetext' ); ?>" />
-                                </a>
-                            <?php
-                            }
-                            // Code Ad
-                            elseif ( $ti_option['single_code_bottom_ad'] == true ) {
-                                echo $ti_option['single_code_bottom_ad'];
-                            } ?>
-                        </div><!-- .advertisment -->
-                    <?php } ?>
-
-
-                    <?php  
-                    // Navigation
-                    if ( $ti_option['single_nav_arrows'] == 1 ) { // Show/Hide Previous Post / Next Post Navigation
-                        $prev_post = get_previous_post();
-                        $next_post = get_next_post();
-                        ?>
-                            <nav class="single-box clearfix nav-single">
-                                <?php if ( !empty( $prev_post ) ) { ?>
-                                <div class="nav-previous">
-                                    <?php previous_post_link ( '%link', '<i class="icomoon-chevron-left"></i><span class="sub-title">' . __( 'Previous article', 'themetext' ) . '</span>%title', TRUE ); ?>
-                                </div>
-                                <?php } ?>
-
-                                <?php if ( !empty( $next_post ) && !empty( $prev_post ) ) { ?>
-                                    <span class="sep"></span>
-                                <?php } ?>
-
-                                <?php if ( !empty( $next_post ) ){ ?>
-                                <div class="nav-next">
-                                    <?php next_post_link( '%link', '<i class="icomoon-chevron-right"></i><span class="sub-title">' . __( 'Next article', 'themetext' ) . '</span>%title', TRUE ); ?>
-                                </div>
-                                <?php } ?>
-                            </nav><!-- .nav-single -->
-                    <?php } ?>
-
+                    
 
                     <?php
                     // Show/Hide related posts
@@ -225,30 +191,44 @@ $single_sidebar = get_post_meta( $post->ID, 'post_sidebar', true );
                         get_template_part( 'inc/related', 'posts' );
                     }
                     ?>
+                    
+                    
+                    <?php
+                    // Show/Hide Previous Post / Next Post Navigation
+                    if ( $ti_option['single_nav_arrows'] == 1 ) {
+                       single_posts_nav();
+                    }
+                    ?>
+                
 
-                   
+                    <?php comments_template(); // Post Comments ?>        
 
-
-                    <?php if ( ! $single_sidebar || $single_sidebar == "post_sidebar_on" ) { // Enable/Disable post sidebar ?>
+                    
+                <?php if ( ! $single_sidebar || $single_sidebar == "post_sidebar_on" ) : // Enable/Disable post sidebar ?>
+                    
                     </div><!-- .grid-8 -->
-
                     <?php get_sidebar(); ?>
+                        
+                <?php endif; ?>
+                        
                 </div><!-- .grids -->
-                <?php }  ?>
-
             </div><!-- .wrapper -->
-
-        </article>
-
+                
+        
+            <?php single_schema_markup(); // Rich Snippets Markup ?>
+                
+                
+        </div><!-- .post -->
+            
     <?php endwhile; endif; ?>
 
     </main><!-- #content -->
 
     <?php
     // Show/Hide random posts slide dock
-    if ( $ti_option['single_slide_dock'] == 1 ) {
+    if ( $ti_option['single_slide_dock'] == 1 ) :
         get_template_part( 'inc/slide', 'dock' );
-    }
+    endif;
     ?>
     
 <?php get_footer(); ?>

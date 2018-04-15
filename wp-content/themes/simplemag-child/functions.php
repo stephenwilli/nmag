@@ -1,4 +1,7 @@
 <?php
+/**
+ * SimpleMag child theme functions & definitions
+**/
 
 add_action( 'wp_enqueue_scripts', 'enqueue_parent_theme_style' );
 function enqueue_parent_theme_style() {
@@ -81,6 +84,4 @@ add_action( 'login_enqueue_scripts', 'my_login_logo' );
 add_image_size( 'rectangle-size-small', 296, 197, false );
 add_image_size( 'regular', 333, 222, false );
 
-
-
-
+?>
