@@ -6,69 +6,7 @@ Author URI: http://themesindep.com/
 Description: Magazine theme for creative things
 Template: simplemag
 */
-/*------------- CUSTOM STYLES ----------------*/ 
 
-/*------------- GLOBAL ----------------*/ 
-
-.title {
-	text-transform: uppercase;
-}
-
-/*------------- HEADER ----------------*/ 
-
-
-
-/*------------- SLIDER ----------------*/ 
-
-.posts-slider.loading li,
-.posts-slider .slides li {
-    max-height:400px;
-}
-
-.content-over-image .entry-meta {
-	display: none !important;
-}
-
-/*------------- HOME CONTENT ----------------*/
-
-
-.title-with-sep {
-	background: url("/wp-content/themes/simplemag-child/images/section-header_02.png") repeat-x 0 50% !important;
-}
-
-.entry-header a {
-	text-decoration: none;
-} 
-
-#home-features p {
-	display: none !important;
-}
-
-.feature-post h2 {
-	text-transform: uppercase;
-	color: #555555;
-	padding: 15px;
-	font-size: 24px !important;
-}
-
-.feature-post:hover h2 {
-	color: #000;
-
-}
-
-.feature-post a {
-	text-decoration: none;
-}
-
-.feature-header {
-	height: 40px;
-	padding: 15px;
-
-}
-
-.advertising {
-	margin-top: -30px;
-}
 
 /*------------- TEAM PAGE ----------------*/ 
 
@@ -101,27 +39,24 @@ Template: simplemag
 
 /*------------- MODAL POPUP ----------------*/ 
 
-#modal-signup input[type='submit'] {
-	border: 3px solid #FFF;
-	color: #FFF;
-}
-
-#modal-signup input[type='submit']:hover {
-	border: 3px solid #ddd;
-	color: #ddd;
-}
 
 #modal-signup .gform_wrapper .left_label input.medium {
-	width: 60%;
+	width: 100%;
 }
-
- #modal-signup .gform_wrapper .gform_footer.left_label {
- 	padding: 15px 0 0 0;
- }
 
 #modal-signup h2, #modal-signup p {
 	text-align: center;
+	margin-bottom: 25px;
 }
+
+#modal-signup img {
+	max-width: 100px;
+}
+
+#modal-signup .gform_wrapper label.gfield_label {
+	font-size: .9rem;
+}
+
 
 .fancybox-wrap {
 	width: 40% !important;
@@ -129,9 +64,9 @@ Template: simplemag
 }
 
 .fancybox-skin {
-	background-color: #000;
-	color: #fff;
-	padding: 25px !important;
+	background-color: #fff;
+	color: #000;
+	padding: 45px 60px 10px 60px !important;
 }
 
 .fancybox-inner {
@@ -199,53 +134,6 @@ Template: simplemag
 .sidebar {
 	padding: 0 24px 24px 24px;
 }
-
-
-
-
-
-
-
-/*------------- CUSTOM RESPONSIVE STYLES ----------------*/ 
-
-
-@media only screen and (max-width: 1200px) {
-
-
-}
-
-@media only screen and (max-width: 960px) {
-	
-	.grid-2 {width: 150px;}
-	.sub-posts {display: none;}
-	#modal-signup .gform_wrapper .left_label input.medium {width: 100%;}
-	#modal-signup .gform_wrapper .left_label li.field_sublabel_below .gfield_label {width: 100%; margin-bottom: 10px;}
- 	#modal-signup .gform_wrapper .gform_footer.left_label {padding: 15px 0 0 0;}
- 	#footerfull {display: none;}
- 	#footermobile {display: inline;}
- 	#footermobile hr {border: none;height: 1px;background-color: #8c919b;opacity: 0.2; margin-bottom: 10px;} 
- 	div#footcontact {border: none; padding-top: 20px; padding-bottom: 20px;}
- 	.footmobile p, .footmobile h4 {text-align: center; padding-bottom: 20px;}
-
-}
-
-
-@media only screen and (max-width: 750px) {
-
-
-.posts-slider.loading li, .posts-slider .slides li {max-height:160px;}
-.entry-title{font-size: 32px !important;}
-.entry-image {background-color: transparent !important;}
-
-.sub-posts {display:none;}
-.menu {color: #FFF;}
-
-.team-member img {float: none; margin: 25px 0px 25px 10%;}
-.team-member h3 {text-align: center;}
-
-}
-
-
 
 /*------------- 2018 ----------------*/ 
 
@@ -365,4 +253,44 @@ Template: simplemag
 .footconnect span, .footer-sidebar .widget a{
 -webkit-transition: all .3s; /* Safari */
 	transition: all .3s;
+}
+
+
+/*------------- RESPONSIVE STYLES ----------------*/ 
+
+
+@media only screen and (max-width: 1200px) {
+
+
+}
+
+@media only screen and (max-width: 960px) {
+	
+	.grid-2 {width: 150px;}
+	.sub-posts {display: none;}
+	#modal-signup .gform_wrapper .left_label input.medium {width: 100%;}
+	#modal-signup .gform_wrapper .left_label li.field_sublabel_below .gfield_label {width: 100%; margin-bottom: 10px;}
+ 	#modal-signup .gform_wrapper .gform_footer.left_label {padding: 15px 0 0 0;}
+ 	#footerfull {display: none;}
+ 	#footermobile {display: inline;}
+ 	#footermobile hr {border: none;height: 1px;background-color: #8c919b;opacity: 0.2; margin-bottom: 10px;} 
+ 	div#footcontact {border: none; padding-top: 20px; padding-bottom: 20px;}
+ 	.footmobile p, .footmobile h4 {text-align: center; padding-bottom: 20px;}
+
+}
+
+
+@media only screen and (max-width: 768px) {
+
+
+.posts-slider.loading li, .posts-slider .slides li {max-height:160px;}
+.entry-title{font-size: 32px !important;}
+.entry-image {background-color: transparent !important;}
+
+.sub-posts {display:none;}
+.menu {color: #FFF;}
+
+.team-member img {float: none; margin: 25px 0px 25px 10%;}
+.team-member h3 {text-align: center;}
+
 }
