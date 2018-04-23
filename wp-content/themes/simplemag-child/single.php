@@ -91,17 +91,20 @@ $single_sidebar = get_post_meta( $post->ID, 'post_sidebar', true );
                     <div class="credits">
                       <?php 
                         $authorname = get_field('author_name');
+                        $photoname = get_field('photographer_name');
                         if ( !empty( $authorname ) ) {
                           ?>
                         <p>Written By: <em><a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php the_field('author_name'); ?></a></em>                                    
                       <?php
                           }
                         ?>
+                        <?php if($authorname && $photoname) { ?>
+                          |
+                        <?php } ?>
                       <?php 
-                          $photoname = get_field('photographer_name');
                           if ( !empty( $photoname ) ) {
                               ?>
-                              | Photography By: <em><?php the_field('photographer_name'); ?></em></p>
+                              Photography By: <em><?php the_field('photographer_name'); ?></em></p>
                         <?php
                         }
                       ?>

@@ -69,7 +69,7 @@ $ti_related_posts = new WP_Query( $args );
                 <a href="<?php the_permalink(); ?>">
                     <?php
                     if ( has_post_thumbnail() ) {
-                    the_post_thumbnail( 'rectangle-size-small' );
+                    the_post_thumbnail( 'rectangle-size' );
                     } elseif( first_post_image() ) { // Set the first image from the editor
                     echo '<img src="' . esc_url( first_post_image() ) . '" class="wp-post-image" alt="' . esc_attr( get_the_title() ) . '" />';
                     } ?>

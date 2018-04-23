@@ -8,11 +8,146 @@ Template: simplemag
 */
 
 
+
+
+/*------------- SIEBAR ----------------*/
+
+#text-4, #text-5 {
+	border-top: 1px solid #555;
+}
+
+.widget h3 {
+	margin-bottom: -20px;
+	margin-top: 15px;
+}
+
+.sidebar {
+	padding: 0 24px 24px 24px;
+}
+
+/*------------- 2018 ----------------*/ 
+
+
+/*------------- GENERAL ----------------*/ 
+
+
+.read-more:hover, input[type="submit"]:hover {
+	box-shadow: none;
+	transform: none;
+	background-color: #ea2127;
+	color: #fff;
+	border: 2px solid #ea2127;
+}
+
+.global-sliders .read-more:hover {
+	box-shadow: none;
+	transform: none;
+	background-color: #fff;
+	color: #000;
+	border: 2px solid #fff;
+}
+
+a {
+	transition: all .5s;
+	-webkit-transition: all .5s;
+}
+
+/*------------- HEADER ----------------*/ 
+
+
+	.header .logo {
+	    max-width: 50px !important;
+	    float: left;
+	}
+
+	.tagline {
+	    margin-left: 80px;
+	    margin-top: 20px;
+	    text-transform: uppercase;
+	}
+
+/*------------- MEGA MENU ----------------*/
+
+.main-menu .sub-posts .mega-menu-item figure {
+	padding: 0 25px;
+	height: auto !important;
+}
+
+/*------------- Home ----------------*/ 
+
+.slick-slide .entry-category {
+	display: none;
+}
+
+.grid-layout.columns-size-2 .entry-image, .penta-box .column-middle .post-item .entry-image, .featured-posts .column-middle .post-item .entry-image {
+    height: auto;
+    margin-bottom: 50px;
+}
+	
+/*------------- SINGLE ----------------*/ 
+	
+	.single-social .add-comment {
+		display: none;
+	}
+	
+	.credits {
+		margin-bottom: 15px;
+	}
+	
+	.entry-meta {
+		margin-top: 35px;
+	}
+
+	.single-box {
+		margin-bottom: 30px;
+	}
+
+
+	.issuuembed {
+		width: 100% !important;
+		height: 800px !important;
+	}
+
+	.author-box {
+		display: none !important;
+	}
+
+	.slide-dock {
+		display: none !important;
+	}
+	
+
+/*------------- OPEN THE MAG ----------------*/ 
+
+.category-open-the-mag .entry-meta {
+	display: none;
+}
+
+/*------------- ARCHIVES ----------------*/
+
+.title-with-sep {
+	margin-top: 15px;
+}
+
+.read-more-link {
+	color: #ea2127;	
+}
+
+.read-more-link:hover {
+	background: transparent;
+	color: #303030;
+}
+
 /*------------- TEAM PAGE ----------------*/ 
 
+.team-member {
+	float:left;
+	clear:both;
+	padding: 65px;
+}
 .team-member img {
 	float: left;
-	margin-right: 25px;
+	margin-right: 65px;
 	margin-bottom: 25px;
 }
 
@@ -23,9 +158,9 @@ Template: simplemag
 }
 
 .team-contact {
-	color: #E92126;
+	color: #Ea2127;
 	text-decoration: none;
-	margin: 0;
+	margin-bottom: 15px;
 	padding: 0;
 }
 
@@ -35,6 +170,10 @@ Template: simplemag
 
 .team-contact span {
 	padding-right: 5px;
+}
+
+.team-break {
+	border: 1px solid #eee;
 }
 
 /*------------- MODAL POPUP ----------------*/ 
@@ -72,104 +211,6 @@ Template: simplemag
 .fancybox-inner {
 	width: 100% !important;
 	overflow-x: hidden !important;
-}
-
-/*------------- POSTS ----------------*/
-
-.entry-meta {
-	margin-top: 35px;
-}
-
-.single-box {
-	margin-bottom: 30px;
-}
-
-
-.issuuembed {
-	width: 100% !important;
-	height: 800px !important;
-}
-
-.author-box {
-	display: none !important;
-}
-
-.slide-dock {
-	display: none !important;
-}
-
-
-/*------------- ARCHIVES ----------------*/
-
-.title-with-sep {
-	margin-top: 15px;
-}
-
-.read-more-link {
-	background-color: #E92126 ;
-	color: #FFF;
-	padding: 15px;
-	-webkit-transition: background-color 1s, color 1s;
-	transition: background-color 1s, color 1s;
-	
-}
-
-.read-more-link:hover {
-	background: transparent;
-	color: #E92126;
-
-}
-
-/*------------- SIEBAR ----------------*/
-
-#text-4, #text-5 {
-	border-top: 1px solid #555;
-}
-
-.widget h3 {
-	margin-bottom: -20px;
-	margin-top: 15px;
-}
-
-.sidebar {
-	padding: 0 24px 24px 24px;
-}
-
-/*------------- 2018 ----------------*/ 
-
-/*------------- Home ----------------*/ 
-
-
-.grid-layout.columns-size-2 .entry-image, .penta-box .column-middle .post-item .entry-image, .featured-posts .column-middle .post-item .entry-image {
-    height: auto;
-    margin-bottom: 50px;
-}
-
-/*------------- HEADER ----------------*/ 
-
-
-	.header .logo {
-	    max-width: 50px !important;
-	    float: left;
-	}
-
-	.tagline {
-	    margin-left: 80px;
-	    margin-top: 20px;
-	    text-transform: uppercase;
-	}
-	
-/*------------- SINGLE ----------------*/ 
-	
-	.single-social .add-comment {
-		display: none;
-	}
-	
-
-/*------------- OPEN THE MAG ----------------*/ 
-
-.category-open-the-mag .entry-meta {
-	display: none;
 }
 	
 /*------------- FOOTER ----------------*/ 
