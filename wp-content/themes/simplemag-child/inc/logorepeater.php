@@ -1,14 +1,11 @@
-<div class="grids entries">
-<?php
-if ( have_rows('sponsor_logos') ): while( have_rows('sponsor_logos') ): the_row();
-$sponsorImage = get_sub_field('logo_image'); 
-$url = $sponsorImage ['sizes']['regular'];
-?> 
-    <article class="post type-post status-publish format-standard has-post-thumbnail hentry grid-4 feature-post">
-      <figure class="entry-image inview">
-        <a href="<?php the_sub_field('sponsor_link'); ?>" target="_blank"><img src="<?php echo esc_url( $url ); ?>" alt="">
-      </figure>
-    </article>
-
-<?php endwhile; endif; ?>
+<div class="partner-logos">
+  <?php
+    if ( have_rows('partner_logos') ): while( have_rows('partner_logos') ): the_row();
+    $partnerImage = get_sub_field('partner_image'); 
+    $url = $partnerImage ['sizes']['regular'];
+  ?> 
+    <div class="grid-2">
+        <a href="<?php the_sub_field('partner_link'); ?>" target="_blank"><img src="<?php echo esc_url( $url ); ?>" alt="">
+    </div>
+  <?php endwhile; endif; ?>
 </div>
