@@ -16,6 +16,7 @@ function enqueue_parent_theme_style() {
 }
 
 //Gets post cat slug and looks for single-[cat slug].php and applies it
+
 add_filter('single_template', create_function(
 	'$the_template',
 	'foreach( (array) get_the_category() as $cat ) {
@@ -40,20 +41,6 @@ if( function_exists('acf_add_options_page') ) {
   ));
 
 }
-
-
-function wpt_admin_color_schemes() {
-	
-	$theme_dir = get_stylesheet_directory_uri();
-
-	wp_admin_css_color( 
-		'nmag', __( 'N Magazine' ),
-		$theme_dir . '/admin-colors/nmag/colors.css',
-		array( '#3a3a3a', '#1f1f1f', '#A72423', '#ffffff' )
-	);
-	
-}
-add_action('admin_init', 'wpt_admin_color_schemes');
 
 function template_part( $atts, $content = null ){
    $tp_atts = shortcode_atts(array( 

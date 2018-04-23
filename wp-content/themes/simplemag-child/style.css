@@ -16,55 +16,7 @@ Template: simplemag
 
 /*------------- HEADER ----------------*/ 
 
-#branding {
-	margin-top: 0 !important;
-	margin-bottom: 0 !important;
 
-
-}
-
-.tagline, .logo img {
-	display: inline-block;
-}
-
-.logo img {
-	width: 200px;
-}
-
-/* .header-default {
-	background: url('/wp-content/uploads/2015/05/header_april2015_01.jpg');
-} */
-.top-strip .social li a:hover {
-	color: #ea2127;
-}
-
-.main-menu .sub-menu .sub-posts li figure {
-    height: 80px !important;
-}
-
-.main-menu .sub-menu .sub-posts li {
-	height: 150px;
-}
-
-.main-menu > ul > li > a:hover {
-	color: #ea2127 !important;
-}
-
-.main-menu > ul > .sub-links-only > .sub-menu {
-	width: 250px;
-}
-
-.sub-posts li a {
-	font-size: 1.2em;
-}
-
-.sub-links li a {
-	font-size: 1.2em;
-}
-
-.with-menu {
-	margin-bottom: 0px;
-}
 
 /*------------- SLIDER ----------------*/ 
 
@@ -249,7 +201,90 @@ Template: simplemag
 }
 
 
-/*------------- FOOTER ----------------*/
+
+
+
+
+
+/*------------- CUSTOM RESPONSIVE STYLES ----------------*/ 
+
+
+@media only screen and (max-width: 1200px) {
+
+
+}
+
+@media only screen and (max-width: 960px) {
+	
+	.grid-2 {width: 150px;}
+	.sub-posts {display: none;}
+	#modal-signup .gform_wrapper .left_label input.medium {width: 100%;}
+	#modal-signup .gform_wrapper .left_label li.field_sublabel_below .gfield_label {width: 100%; margin-bottom: 10px;}
+ 	#modal-signup .gform_wrapper .gform_footer.left_label {padding: 15px 0 0 0;}
+ 	#footerfull {display: none;}
+ 	#footermobile {display: inline;}
+ 	#footermobile hr {border: none;height: 1px;background-color: #8c919b;opacity: 0.2; margin-bottom: 10px;} 
+ 	div#footcontact {border: none; padding-top: 20px; padding-bottom: 20px;}
+ 	.footmobile p, .footmobile h4 {text-align: center; padding-bottom: 20px;}
+
+}
+
+
+@media only screen and (max-width: 750px) {
+
+
+.posts-slider.loading li, .posts-slider .slides li {max-height:160px;}
+.entry-title{font-size: 32px !important;}
+.entry-image {background-color: transparent !important;}
+
+.sub-posts {display:none;}
+.menu {color: #FFF;}
+
+.team-member img {float: none; margin: 25px 0px 25px 10%;}
+.team-member h3 {text-align: center;}
+
+}
+
+
+
+/*------------- 2018 ----------------*/ 
+
+/*------------- Home ----------------*/ 
+
+
+.grid-layout.columns-size-2 .entry-image, .penta-box .column-middle .post-item .entry-image, .featured-posts .column-middle .post-item .entry-image {
+    height: auto;
+    margin-bottom: 50px;
+}
+
+/*------------- HEADER ----------------*/ 
+
+
+	.header .logo {
+	    max-width: 50px !important;
+	    float: left;
+	}
+
+	.tagline {
+	    margin-left: 80px;
+	    margin-top: 20px;
+	    text-transform: uppercase;
+	}
+	
+/*------------- SINGLE ----------------*/ 
+	
+	.single-social .add-comment {
+		display: none;
+	}
+	
+
+/*------------- OPEN THE MAG ----------------*/ 
+
+.category-open-the-mag .entry-meta {
+	display: none;
+}
+	
+/*------------- FOOTER ----------------*/ 
 
 
 #footermobile {
@@ -290,17 +325,20 @@ Template: simplemag
 
 .foothalf h4 {
 	text-align: center;
+	font-family: "Work Sans";
+	text-transform: uppercase;
+	
 }
 
-div#footcontact {
-	border-right: 1px dotted #8C919B;
-}
 
 #footcontact a {
 	font-size: 1em;
 	line-height: 1.8;
 	text-decoration: none;
 	text-transform: uppercase;
+	-webkit-transition: all .3s; /* Safari */
+  transition: all .3s;
+	
 }
 
 #footcontact h3 {
@@ -311,7 +349,7 @@ div#footcontact {
 	text-align: center;
 	margin-top:-8px;
 	margin-bottom: -8px;
-
+	font-family: "Work Sans";
 }
 
 #footcontact img {
@@ -324,49 +362,7 @@ div#footcontact {
 	font-size: 2em;
 }
 
-
-
-/*------------- CUSTOM RESPONSIVE STYLES ----------------*/ 
-
-
-@media only screen and (max-width: 1200px) {
-	
-	.posts-slider.loading li, .posts-slider .slides li {max-height:350px;}
-
-}
-
-@media only screen and (max-width: 960px) {
-	
-	#branding {margin-bottom: 20px !important;}
-	.posts-slider.loading li, .posts-slider .slides li {max-height:270px;}
-	.grid-2 {width: 150px;}
-	.sub-posts {display: none;}
-	#modal-signup .gform_wrapper .left_label input.medium {width: 100%;}
-	#modal-signup .gform_wrapper .left_label li.field_sublabel_below .gfield_label {width: 100%; margin-bottom: 10px;}
- 	#modal-signup .gform_wrapper .gform_footer.left_label {padding: 15px 0 0 0;}
- 	#footerfull {display: none;}
- 	#footermobile {display: inline;}
- 	#footermobile hr {border: none;height: 1px;background-color: #8c919b;opacity: 0.2; margin-bottom: 10px;} 
- 	div#footcontact {border: none; padding-top: 20px; padding-bottom: 20px;}
- 	.footmobile p, .footmobile h4 {text-align: center; padding-bottom: 20px;}
-
-}
-
-
-@media only screen and (max-width: 750px) {
-
-.tagline, .logo img {display: block;}
-.tagline {top:0px;}
-/* .header-default {background: url('/wp-content/uploads/2015/05/header_april2015_02.jpg');} */
-
-.posts-slider.loading li, .posts-slider .slides li {max-height:160px;}
-.entry-title{font-size: 32px !important;}
-.entry-image {background-color: transparent !important;}
-
-.sub-posts {display:none;}
-.menu {color: #FFF;}
-
-.team-member img {float: none; margin: 25px 0px 25px 10%;}
-.team-member h3 {text-align: center;}
-
+.footconnect span, .footer-sidebar .widget a{
+-webkit-transition: all .3s; /* Safari */
+	transition: all .3s;
 }

@@ -195,13 +195,13 @@ $single_sidebar = get_post_meta( $post->ID, 'post_sidebar', true );
                     
                     <?php
                     // Show/Hide Previous Post / Next Post Navigation
-                    if ( $ti_option['single_nav_arrows'] == 1 ) {
-                       single_posts_nav();
-                    }
+                    // if ( $ti_option['single_nav_arrows'] == 1 ) {
+                    //    single_posts_nav();
+                    // }
                     ?>
                 
 
-                    <?php comments_template(); // Post Comments ?>        
+                         
 
                     
                 <?php if ( ! $single_sidebar || $single_sidebar == "post_sidebar_on" ) : // Enable/Disable post sidebar ?>
