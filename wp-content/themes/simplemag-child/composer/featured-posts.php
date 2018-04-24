@@ -73,7 +73,7 @@ $ti_featured_posts = new WP_Query(
                 elseif ( $posts_column == 1 ) : // Right column
 
                     $posts_width = 'grid-6';
-                    $posts_image_size = 'rectangle-size-small';
+                    $posts_image_size = 'rectangle-size';
                     echo '<div class="grid-6 column-right"><div class="grids grid-layout featured-carousel">';
 
                 endif;
