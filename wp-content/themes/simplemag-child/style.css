@@ -53,7 +53,7 @@ h2.title {
 	
 	.admin-bar .sticky-active .main-menu-fixed {
 		width: 100% !important;
-		background-color: #fff;
+		background-color: #fff !important;
 	}
 
 	#branding .social li a {
