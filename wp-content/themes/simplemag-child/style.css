@@ -48,7 +48,7 @@ h2.title {
 	}
 	
 	.main-menu-container, .sticky-active .main-menu-fixed {
-		background-color: transparent;
+		background-color: transparent !important;
 	}
 	
 	.admin-bar .sticky-active .main-menu-fixed {
