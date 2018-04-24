@@ -42,9 +42,26 @@ h2.title {
 
 /*------------- HEADER ----------------*/ 
 
+	.main-menu-container {
+		position: absolute;
+		top: 65px;
+	}
+	
+	.main-menu-container, .sticky-active .main-menu-fixed {
+		background-color: transparent;
+	}
+	
+	.admin-bar .sticky-active .main-menu-fixed {
+		width: 100% !important;
+		background-color: #fff;
+	}
+
+	#branding .social li a {
+		color: #303030;
+	} 
 
 	.header .logo {
-	    max-width: 50px !important;
+	    max-width: 60px !important;
 	    float: left;
 	}
 
@@ -52,7 +69,9 @@ h2.title {
 			margin-left: 80px;
 			margin-top: 20px;
 	    text-transform: uppercase;
+			color: #303030;
 	}
+
 
 /*------------- MEGA MENU ----------------*/
 
@@ -352,7 +371,7 @@ h2.title {
 
 @media only screen and (max-width: 768px) {
 
-
+.header .logo {float:none; max-width: 100px !important;}
 .posts-slider.loading li, .posts-slider .slides li {max-height:160px;}
 .entry-title{font-size: 32px !important;}
 .entry-image {background-color: transparent !important;}
