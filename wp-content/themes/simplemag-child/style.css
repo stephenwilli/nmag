@@ -43,34 +43,26 @@ h2.title {
 /*------------- HEADER ----------------*/ 
 
 	.main-menu-container {
-		position: absolute;
-		top: 65px;
+		 z-index: 10;
 	}
 	
-	.main-menu-container, .sticky-active .main-menu-fixed {
-		background-color: transparent !important;
-	}
-	
-	.admin-bar .sticky-active .main-menu-fixed {
-		width: 100% !important;
-		background-color: #fff !important;
-	}
-
-	#branding .social li a {
-		color: #303030;
-	} 
 
 	.header .logo {
-	    max-width: 60px !important;
-	    float: left;
+    max-width: 90px !important;
+    float: left;
 	}
+	.header .logo img {
+		position: relative;
+		z-index: 20;
+	}
+	
 
-	.tagline {
+	/* .tagline {
 			margin-left: 80px;
 			margin-top: 20px;
 	    text-transform: uppercase;
 			color: #303030;
-	}
+	} */
 
 
 /*------------- MEGA MENU ----------------*/

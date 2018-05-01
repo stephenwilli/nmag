@@ -90,7 +90,7 @@
                 // Main Logo Area
                 if ( $ti_option['site_main_area'] == true ) {
                 ?>
-                <div id="branding" class="anmtd">
+                <div id="branding">
                     <div class="wrapper">
                     <?php
                         /**
