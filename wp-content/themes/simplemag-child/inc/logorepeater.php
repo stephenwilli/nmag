@@ -5,7 +5,7 @@
     $url = $partnerImage ['sizes']['regular'];
   ?> 
     <div class="grid-2">
-        <a href="<?php the_sub_field('partner_link'); ?>" target="_blank"><img src="<?php echo esc_url( $url ); ?>" alt="">
+      <a href="<?php the_sub_field('partner_link'); ?>" target="_blank"><img src="<?php echo $url; ?>" alt="" /></a>
     </div>
   <?php endwhile; endif; ?>
 </div>
