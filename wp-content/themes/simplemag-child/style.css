@@ -82,6 +82,9 @@ h2.title {
     margin-top: 60px;
 }
 
+.lines-button .lines, .lines-button .lines:after, .lines-button .lines:before {
+    background: #fff;
+}
 
 .partner-logos img {
 	opacity: 1;
