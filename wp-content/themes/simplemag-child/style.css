@@ -78,10 +78,9 @@ h2.title {
 	margin-top: 10px;
 }
 
-/* .grid-layout.columns-size-2 .entry-image, .penta-box .column-middle .post-item .entry-image, .featured-posts .column-middle .post-item .entry-image {
-    height: auto;
-    margin-bottom: 50px;
-} */
+.home-section {
+    margin-top: 60px;
+}
 
 .partner-logos img {
 	opacity: 1;
