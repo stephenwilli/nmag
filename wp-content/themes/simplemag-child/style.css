@@ -82,6 +82,10 @@ h2.title {
     margin-top: 60px;
 }
 
+.advertising {
+    margin-top: -60px !important;
+	}
+
 .partner-logos img {
 	opacity: 1;
 	transition: all .5s;
