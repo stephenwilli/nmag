@@ -6,7 +6,7 @@ $url = $sponsorImage ['sizes']['regular'];
 ?> 
     <article class="post type-post status-publish format-standard has-post-thumbnail hentry grid-4 feature-post">
       <figure class="entry-image inview">
-        <a href="<?php the_sub_field('sponsor_link'); ?>" target="_blank"><img src="<?php echo esc_url( $url ); ?>" alt="">
+        <a href="<?php the_sub_field('sponsor_link'); ?>" target="_blank"><img src="<?php echo esc_url( $url ); ?>" alt=""></a>
       </figure>
     </article>
 
