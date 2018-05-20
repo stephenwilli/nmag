@@ -47,12 +47,16 @@ h2.title {
 	}
 	
 	.header .logo {
-    max-width: 150px !important;
+    max-width: 130px !important;
     float: left;
 	}
 	.header .logo img {
 		position: relative;
 		z-index: 20;
+	}
+	
+	#masthead {
+		margin-bottom: 10px;
 	}
 	
 
@@ -64,7 +68,7 @@ h2.title {
 }
 
 .main-menu-container {
-    margin-top: 75px;
+    margin-top: 25px;
 }
 
 /*------------- Home ----------------*/ 
